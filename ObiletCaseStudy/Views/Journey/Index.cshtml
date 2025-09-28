@@ -1,0 +1,65 @@
+@model ObiletCaseStudy.Models.ViewModels.JourneyIndexViewModel
+
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4 p-3 bg-light rounded-3 shadow-sm">
+                <a href="/" class="btn btn-outline-secondary d-flex align-items-center">
+                    <i class="fas fa-arrow-left me-2"></i> Geri Dön
+                </a>
+                <div class="text-center flex-grow-1">
+                    <h5 class="fw-bold mb-0">@Model.Journeys.First().OriginLocation → @Model.Journeys.First().DestinationLocation</h5>
+                    <small class="text-muted">@Model.Search.DepartureDate.ToString("dd MMMM yyyy, dddd")</small>
+                </div>
+            </div>
+
+            @if (Model.Journeys.Any())
+            {
+                foreach (var journey in Model.Journeys)
+                {
+                    <div class="card mb-3 border-0 rounded-3 shadow-sm journey-card">
+                        <div class="card-body">
+                            <div class="row align-items-center">
+                                <div class="col-md-2 col-3 d-flex justify-content-center">
+                                    <img src="https://s3.eu-central-1.amazonaws.com/static.obilet.com/images/partner/@(journey.PartnerId)-sm.png"
+                                         alt="@journey.PartnerName" class="img-fluid" style="max-height: 50px;">
+                                </div>
+                                <div class="col-md-6 col-9">
+                                    <div class="d-flex align-items-center mb-1">
+                                        <div class="me-3">
+                                            <small class="text-muted d-block">Kalkış</small>
+                                            <span class="fs-5 fw-bold">@journey.JourneyInfo.Departure.ToString("HH:mm")</span>
+                                        </div>
+                                        <i class="fas fa-long-arrow-alt-right text-muted mx-3"></i>
+                                        <div>
+                                            <small class="text-muted d-block">Varış</small>
+                                            <span class="fs-5 fw-bold">@journey.JourneyInfo.Arrival.ToString("HH:mm")</span>
+                                        </div>
+                                    </div>
+                                    <p class="text-muted mb-0"><i class="fas fa-bus me-2"></i>@journey.PartnerName</p>
+                                    <small class="text-muted"><i class="fas fa-map-marker-alt me-2"></i>@journey.OriginLocation - @journey.DestinationLocation</small>
+                                </div>
+                                <div class="col-md-2 col-12 d-flex flex-column text-md-end text-center mt-3 mt-md-0">
+                                    <span class="text-success fs-5 fw-bold">@string.Format("{0:N2}", journey.InternetPrice) @journey.JourneyInfo.Currency</span>
+                                </div>
+                                <div class="col-md-2 col-12 d-flex align-items-center justify-content-center mt-3 mt-md-0">
+                                    <a href="https://www.obilet.com/seferler/@(journey.OriginLocationId)-@(journey.DestinationLocationId)/@Model.Search.DepartureDate.ToString("yyyy-MM-dd")/@journey.Id"
+                                       target="_blank" class="btn btn-primary btn-block fw-bold py-2">
+                                        Koltuk Seç
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="alert alert-info text-center">
+                    <h5>Sefer bulunamadı</h5>
+                    <p class="mb-0">Belirtilen kriterlere uygun sefer bulunmamaktadır.</p>
+                </div>
+            }
+        </div>
+    </div>
+</div>

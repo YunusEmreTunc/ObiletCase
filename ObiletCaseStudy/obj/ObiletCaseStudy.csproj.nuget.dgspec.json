@@ -1,0 +1,76 @@
+{
+  "format": 1,
+  "restore": {
+    "/Users/yunusemretunc/RiderProjects/ObiletCaseStudy/ObiletCaseStudy/ObiletCaseStudy.csproj": {}
+  },
+  "projects": {
+    "/Users/yunusemretunc/RiderProjects/ObiletCaseStudy/ObiletCaseStudy/ObiletCaseStudy.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/yunusemretunc/RiderProjects/ObiletCaseStudy/ObiletCaseStudy/ObiletCaseStudy.csproj",
+        "projectName": "ObiletCaseStudy",
+        "projectPath": "/Users/yunusemretunc/RiderProjects/ObiletCaseStudy/ObiletCaseStudy/ObiletCaseStudy.csproj",
+        "packagesPath": "/Users/yunusemretunc/.nuget/packages/",
+        "outputPath": "/Users/yunusemretunc/RiderProjects/ObiletCaseStudy/ObiletCaseStudy/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/yunusemretunc/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {},
+          "https://nuget.devexpress.com/pL1SnZTWW7S6H4iTyBqWumE1SURISYH4INQjfCfyP8DTYZin6r/api/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[6.0.12, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/Users/yunusemretunc/.dotnet/sdk/8.0.411/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

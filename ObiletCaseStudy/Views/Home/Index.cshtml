@@ -1,0 +1,217 @@
+﻿@model ObiletCaseStudy.Models.ViewModels.IndexViewModel
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Otobüs Bileti Ara</h4>
+                </div>
+                <div class="card-body">
+                    <form id="searchForm" method="post">
+                        <div class="row">
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="origin" class="font-weight-bold">Nereden</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">📍</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="origin" 
+                                               placeholder="İstanbul Avrupa" 
+                                               value="@Model.Locations.FirstOrDefault(x => x.Id == Model.OriginId)?.Name">
+                                    </div>
+                                    <input type="hidden" id="originId" name="OriginId" value="@Model.OriginId">
+                                    <div id="originResults" class="autocomplete-results"></div>
+                                </div>
+                            </div>
+                            <div class="col-md-2 d-flex align-items-center justify-content-center">
+                                <button type="button" id="swapLocations" class="btn btn-outline-secondary btn-sm">
+                                    ⇄
+                                </button>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="form-group">
+                                    <label for="destination" class="font-weight-bold">Nereye</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">🎯</span>
+                                        </div>
+                                        <input type="text" class="form-control" id="destination" 
+                                               placeholder="Ankara" 
+                                               value="@Model.Locations.FirstOrDefault(x => x.Id == Model.DestinationId)?.Name">
+                                    </div>
+                                    <input type="hidden" id="destinationId" name="DestinationId" value="@Model.DestinationId">
+                                    <div id="destinationResults" class="autocomplete-results"></div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="departureDate" class="font-weight-bold">Tarih</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">📅</span>
+                                        </div>
+                                        <input type="date" class="form-control" id="departureDate" 
+                                               name="DepartureDate" 
+                                               min="@DateTime.Now.ToString("yyyy-MM-dd")"
+                                               value="@Model.DepartureDate.ToString("yyyy-MM-dd")">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 d-flex align-items-end">
+                                <div class="w-100">
+                                    <label class="font-weight-bold d-block mb-2">Hızlı Seçim</label>
+                                    <div class="btn-group w-100">
+                                        <button type="button" class="btn btn-outline-primary date-btn" data-days="0">
+                                            <div>Bugün</div>
+                                            <small>@DateTime.Now.ToString("dd MMM")</small>
+                                        </button>
+                                        <button type="button" class="btn btn-outline-primary date-btn" data-days="1">
+                                            <div>Yarın</div>
+                                            <small>@DateTime.Now.AddDays(1).ToString("dd MMM")</small>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row mt-4">
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                    <i class="fas fa-search mr-2"></i>Bilet Bul
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    .card {
+        border: none;
+        border-radius: 15px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+    
+    .card-header {
+        border-radius: 15px 15px 0 0 !important;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        border: none;
+        padding: 20px;
+    }
+    
+    .form-control {
+        border-radius: 8px;
+        border: 2px solid #e9ecef;
+        padding: 10px 15px;
+        height: 45px;
+    }
+    
+    .form-control:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    }
+    
+    .input-group-text {
+        background: #f8f9fa;
+        border: 2px solid #e9ecef;
+        border-right: none;
+        padding: 0.530rem 0.75rem;
+    }
+    
+    .btn-outline-primary {
+        border-color: #667eea;
+        color: #667eea;
+    }
+    
+    .btn-outline-primary:hover {
+        background-color: #667eea;
+        border-color: #667eea;
+    }
+    
+    .btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border: none;
+        border-radius: 8px;
+        padding: 12px;
+        font-weight: 600;
+    }
+    
+    .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+    }
+    
+    .date-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 8px 12px;
+        font-size: 0.9rem;
+    }
+    
+    .date-btn small {
+        font-size: 0.8rem;
+        opacity: 0.8;
+    }
+    
+    #swapLocations {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    
+    #swapLocations:hover {
+        transform: rotate(180deg);
+        background-color: #667eea;
+        color: white;
+    }
+    
+</style>
+
+@section Scripts {
+    <script>
+        // Sayfa açıldığında localStorage'dan değerleri getirir
+        document.addEventListener("DOMContentLoaded", function () {
+            let savedOrigin = localStorage.getItem("origin");
+            let savedOriginId = localStorage.getItem("originId");
+            let savedDestination = localStorage.getItem("destination");
+            let savedDestinationId = localStorage.getItem("destinationId");
+            let savedDate = localStorage.getItem("departureDate");
+
+            if (savedOrigin) document.getElementById("origin").value = savedOrigin;
+            if (savedOriginId) document.getElementById("originId").value = savedOriginId;
+
+            if (savedDestination) document.getElementById("destination").value = savedDestination;
+            if (savedDestinationId) document.getElementById("destinationId").value = savedDestinationId;
+
+            if (savedDate) document.getElementById("departureDate").value = savedDate;
+        });
+
+        // Form submit olunca seçimleri localStorage'a yaz
+        document.getElementById("searchForm").addEventListener("submit", function () {
+            let origin = document.getElementById("origin").value;
+            let originId = document.getElementById("originId").value;
+            let destination = document.getElementById("destination").value;
+            let destinationId = document.getElementById("destinationId").value;
+            let date = document.getElementById("departureDate").value;
+
+            localStorage.setItem("origin", origin);
+            localStorage.setItem("originId", originId);
+            localStorage.setItem("destination", destination);
+            localStorage.setItem("destinationId", destinationId);
+            localStorage.setItem("departureDate", date);
+        });
+    </script>
+}
